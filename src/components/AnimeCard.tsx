@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Skeleton, Text, VStack } from '@chakra-ui/react';
 import { IAnime } from '@/types/anime';
 
-const AnimeCard = ({ isLoading, anime }: { isLoading: boolean; anime?: IAnime }) => {
+const AnimeCard = ({ isLoading, anime, onClick }: { isLoading: boolean; anime?: IAnime; onClick?: () => void }) => {
   if (isLoading) {
     return (
       <Skeleton borderRadius="8px">
@@ -40,7 +40,7 @@ const AnimeCard = ({ isLoading, anime }: { isLoading: boolean; anime?: IAnime })
         gap="0px"
         overflow="hidden"
       >
-        <Box aspectRatio="auto 2/3" position="relative" width="100%">
+        <Box aspectRatio="auto 2/3" onClick={onClick} position="relative" width="100%">
           <Image
             alt="Anime Poster"
             height="100%"

@@ -58,5 +58,6 @@ export const ANIME_STATUS: IAnimeStatus[] = [
 ];
 
 export const API_ENDPOINT = {
-  SEARCH_ANIME: '/anime',
+  ANIME_SEARCH: '/anime',
+  ANIME_DETAIL: '/anime/:id',
 };

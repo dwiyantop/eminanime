@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Box, Center, Container, Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react';
 import { IAnimeSearchParams } from '@/types/anime';
 import { NextPageWithLayout } from '@/pages/_app';
@@ -10,6 +11,7 @@ import { useGetAnimeList } from '@/hooks/useAnime';
 import useDebounce from '@/hooks/useDebounce';
 
 const IndexPage: NextPageWithLayout = () => {
+  const router = useRouter();
   const [params, setParams] = useState<IAnimeSearchParams>({
     page: 1,
     limit: 12,
@@ -65,6 +67,10 @@ const IndexPage: NextPageWithLayout = () => {
     });
   };
 
+  const goToAnimeDetailPage = (animeId: number) => {
+    router.push(`/anime/${animeId.toString()}`);
+  };
+
   return (
     <Container maxWidth="container.xl" padding="24px">
       <Flex gap="24px">
@@ -92,7 +98,11 @@ const IndexPage: NextPageWithLayout = () => {
               <Grid gap={6} templateColumns="repeat(4, 1fr)">
                 {dataAnime.data.map((item, index) => (
                   <GridItem key={index}>
-                    <AnimeCard anime={item} isLoading={isLoadingAnime} />
+                    <AnimeCard
+                      anime={item}
+                      isLoading={isLoadingAnime}
+                      onClick={() => goToAnimeDetailPage(item.mal_id)}
+                    />
                   </GridItem>
                 ))}
               </Grid>

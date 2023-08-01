@@ -12,6 +12,10 @@ export interface IAnimeSearchResult {
   data: IAnime[];
 }
 
+export interface IAnimeDetailResult {
+  data: IAnime;
+}
+
 export interface IAnime {
   mal_id: number;
   url: string;
