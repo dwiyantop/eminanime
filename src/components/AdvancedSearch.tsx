@@ -45,11 +45,14 @@ const AdvanceSearch = ({
     setSelectedAnimeType(null);
     setSelectedAnimeRating(null);
     setSelectedAnimeStatus(null);
+    onAnimeTypeChange(null);
+    onAnimeRatingChange(null);
+    onAnimeStatusChange(null);
     onClearAllFilter();
   };
 
   return (
-    <Box>
+    <Box data-testid="advanced-search">
       <VStack borderRadius="8px" boxShadow="0 0 10px rgba(0, 0, 0, 0.1)" gap="0" position="sticky" width="280px">
         <Flex alignItems="center" borderBottom="1px solid" borderColor="gray.200" padding="16px" width="100%">
           <Heading size="xs">Advanced Search</Heading>

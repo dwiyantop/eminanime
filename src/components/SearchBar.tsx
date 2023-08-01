@@ -24,7 +24,7 @@ const SearchBar = ({
             onChange={e => handleQueryOnChange(e.target.value as string)}
             placeholder="Search anime"
             size="md"
-            value={searchQuery ?? ''}
+            value={searchQuery}
           />
         </InputGroup>
       </Center>
