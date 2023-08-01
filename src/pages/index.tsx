@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react';
-import { Box, Container, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Center, Container, Flex, Grid, GridItem, Heading, Text } from '@chakra-ui/react';
 import { IAnimeSearchParams } from '@/types/anime';
 import { NextPageWithLayout } from '@/pages/_app';
 import DefaultLayout from '@/layouts/DefaultLayout';
@@ -14,29 +14,96 @@ const IndexPage: NextPageWithLayout = () => {
     page: 1,
     limit: 12,
     q: '',
+    type: null,
+    rating: null,
+    status: null,
+    genres_exclude: '12',
   });
+
   const { data: dataAnime, isLoading: isLoadingAnime, error: errorAnime } = useGetAnimeList(useDebounce(params, 500));
+
+  const handleQueryChange = (value: string) => {
+    setParams({ ...params, page: 1, limit: 12, q: value });
+  };
+
+  const handleAnimeRatingChange = (value: string | null) => {
+    setParams({ ...params, page: 1, limit: 12, q: params.q, rating: value, type: params.type, status: params.status });
+  };
+
+  const handleAnimeTypeChange = (value: string | null) => {
+    setParams({
+      ...params,
+      page: 1,
+      limit: 12,
+      q: params.q,
+      rating: params.rating,
+      type: value,
+      status: params.status,
+    });
+  };
+
+  const handleAnimeStatusChange = (value: string | null) => {
+    setParams({
+      ...params,
+      page: 1,
+      limit: 12,
+      q: params.q,
+      rating: params.rating,
+      type: params.type,
+      status: value,
+    });
+  };
+
+  const resetAllFilter = () => {
+    setParams({
+      ...params,
+      page: 1,
+      limit: 12,
+      rating: null,
+      type: null,
+      status: null,
+    });
+  };
 
   return (
     <Container maxWidth="container.xl" padding="24px">
       <Flex gap="24px">
-        <AdvancedSearch />
+        <AdvancedSearch
+          animeRating={params.rating}
+          animeStatus={params.status}
+          animeType={params.type}
+          onAnimeRatingChange={handleAnimeRatingChange}
+          onAnimeStatusChange={handleAnimeStatusChange}
+          onAnimeTypeChange={handleAnimeTypeChange}
+          onClearAllFilter={resetAllFilter}
+        />
         <Box flex="1">
-          <SearchBar />
+          <SearchBar onQueryChange={handleQueryChange} searchQuery={params.q} />
           <Box marginTop="24px">
-            <Grid gap={6} templateColumns="repeat(4, 1fr)">
-              {isLoadingAnime && !dataAnime
-                ? [...Array(4)].map((item, index) => (
-                    <GridItem key={index}>
-                      <AnimeCard anime={undefined} isLoading={isLoadingAnime} />
-                    </GridItem>
-                  ))
-                : dataAnime?.data.map((item, index) => (
-                    <GridItem key={index}>
-                      <AnimeCard anime={item} isLoading={isLoadingAnime} />
-                    </GridItem>
-                  ))}
-            </Grid>
+            {isLoadingAnime && !dataAnime ? (
+              <Grid gap={6} templateColumns="repeat(4, 1fr)">
+                {[...Array(4)].map((item, index) => (
+                  <GridItem key={index}>
+                    <AnimeCard anime={undefined} isLoading={isLoadingAnime} />
+                  </GridItem>
+                ))}
+              </Grid>
+            ) : dataAnime && dataAnime.data.length > 0 ? (
+              <Grid gap={6} templateColumns="repeat(4, 1fr)">
+                {dataAnime.data.map((item, index) => (
+                  <GridItem key={index}>
+                    <AnimeCard anime={item} isLoading={isLoadingAnime} />
+                  </GridItem>
+                ))}
+              </Grid>
+            ) : (
+              <Center height="calc(100vh - 122px)" width="100%">
+                <Flex alignContent="center" alignItems="center" direction="column">
+                  <Heading size="sm">Result not found</Heading>
+                  <Text fontSize="sm">Please try another keyword or search filter</Text>
+                </Flex>
+              </Center>
+            )}
           </Box>
         </Box>
       </Flex>

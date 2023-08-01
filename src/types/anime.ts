@@ -125,7 +125,9 @@ export interface IAnimeSearchParams {
   page: number;
   limit: number;
   q: string;
-  type?: string;
-  rating?: string;
+  type: string | null;
+  rating: string | null;
+  status: string | null;
   genres?: string;
+  genres_exclude?: string;
 }
