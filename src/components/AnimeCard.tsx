@@ -4,7 +4,7 @@ import { IAnime } from '@/types/anime';
 const AnimeCard = ({ isLoading, anime, onClick }: { isLoading: boolean; anime?: IAnime; onClick?: () => void }) => {
   if (isLoading) {
     return (
-      <Skeleton borderRadius="8px">
+      <Skeleton borderRadius="8px" data-testid="loading-skeleton">
         <VStack
           alignItems="flex-start"
           background="white"
@@ -37,6 +37,7 @@ const AnimeCard = ({ isLoading, anime, onClick }: { isLoading: boolean; anime?: 
         background="white"
         borderRadius="8px"
         boxShadow="0 0 10px rgba(0, 0, 0, 0.1)"
+        data-testid="anime-card"
         gap="0px"
         overflow="hidden"
       >
@@ -68,7 +69,7 @@ const AnimeCard = ({ isLoading, anime, onClick }: { isLoading: boolean; anime?: 
                 return index < anime.genres.length - 1 ? `${item.name} / ` : item.name;
               })}
             </Text>
-            <Text fontSize="xs">{anime.episodes || '1'} Eps</Text>
+            {anime.episodes && <Text fontSize="xs">{anime.episodes} Eps</Text>}
           </Flex>
         </Box>
       </VStack>

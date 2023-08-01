@@ -1,29 +1,10 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { useRouter } from 'next/router';
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  HStack,
-  Image,
-  Skeleton,
-  Spacer,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Heading, HStack, Image, Skeleton, Spacer, Text, VStack } from '@chakra-ui/react';
 import { ChevronLeftIcon } from '@chakra-ui/icons';
-import { IAnimeSearchParams } from '@/types/anime';
 import { NextPageWithLayout } from '@/pages/_app';
 import DefaultLayout from '@/layouts/DefaultLayout';
-import SearchBar from '@/components/SearchBar';
-import AdvancedSearch from '@/components/AdvancedSearch';
-import AnimeCard from '@/components/AnimeCard';
 import { useGetAnimeDetail } from '@/hooks/useAnime';
-import useDebounce from '@/hooks/useDebounce';
 
 const AnimeDetailPage: NextPageWithLayout = () => {
   const router = useRouter();
