@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Cookie from 'js-cookie';
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { MOCK_ENDPOINT } from '@/constants/apiEndpoint';
+// import { API_ENDPOINT } from '@/constants';
 
 enum StatusCode {
   Unauthorized = 401,
@@ -47,39 +47,39 @@ const onErrorResponse = async (error: AxiosError | Error): Promise<AxiosError> =
 
     switch (status) {
       case StatusCode.Unauthorized: {
-        const { refreshToken } = getAuthToken();
+        // const { refreshToken } = getAuthToken();
 
-        if (refreshToken) {
-          const originalRequestConfig = error.config as AxiosRequestConfig;
-          const newHttp = axios.create({
-            baseURL: originalRequestConfig.baseURL,
-            headers,
-            withCredentials: true,
-          });
-          const response = await newHttp.post(MOCK_ENDPOINT.AUTH_REFRESH_TOKEN, {
-            refresh_token: refreshToken,
-          });
+        // if (refreshToken) {
+        //   const originalRequestConfig = error.config as AxiosRequestConfig;
+        //   const newHttp = axios.create({
+        //     baseURL: originalRequestConfig.baseURL,
+        //     headers,
+        //     withCredentials: true,
+        //   });
+        //   const response = await newHttp.post(MOCK_ENDPOINT.AUTH_REFRESH_TOKEN, {
+        //     refresh_token: refreshToken,
+        //   });
 
-          if (response.status === 200) {
-            const originalRequestConfig = error.config as AxiosRequestConfig;
+        //   if (response.status === 200) {
+        //     const originalRequestConfig = error.config as AxiosRequestConfig;
 
-            const { access_token: newAccessToken, refresh_token: newRefreshToken } = response.data.result;
-            Cookie.set('accessToken', newAccessToken);
-            Cookie.set('refreshToken', newRefreshToken);
+        //     const { access_token: newAccessToken, refresh_token: newRefreshToken } = response.data.result;
+        //     Cookie.set('accessToken', newAccessToken);
+        //     Cookie.set('refreshToken', newRefreshToken);
 
-            if (originalRequestConfig.headers) {
-              originalRequestConfig.headers.Authorization = `Bearer ${newAccessToken}`;
-            } else {
-              originalRequestConfig.headers = {
-                ...headers,
-                Authorization: `Bearer ${newAccessToken}`,
-              };
-            }
-          }
-        } else {
-          Cookie.remove('accessToken');
-          Cookie.remove('refreshToken');
-        }
+        //     if (originalRequestConfig.headers) {
+        //       originalRequestConfig.headers.Authorization = `Bearer ${newAccessToken}`;
+        //     } else {
+        //       originalRequestConfig.headers = {
+        //         ...headers,
+        //         Authorization: `Bearer ${newAccessToken}`,
+        //       };
+        //     }
+        //   }
+        // } else {
+        //   Cookie.remove('accessToken');
+        //   Cookie.remove('refreshToken');
+        // }
 
         break;
       }
@@ -159,8 +159,5 @@ class Http {
 const apiClient = new Http({
   baseUrl: '/api',
 });
-const mockClient = new Http({
-  baseUrl: '/mock',
-});
 
-export { apiClient, mockClient };
+export { apiClient };
