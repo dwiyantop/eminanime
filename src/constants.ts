@@ -56,3 +56,7 @@ export const ANIME_STATUS: IAnimeStatus[] = [
     value: 'upcoming',
   },
 ];
+
+export const API_ENDPOINT = {
+  searchAnime: '/anime',
+};

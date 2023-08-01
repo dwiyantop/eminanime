@@ -1,9 +1,10 @@
 import { ReactElement } from 'react';
-import { Box, Container, Flex } from '@chakra-ui/react';
+import { Box, Container, Flex, Grid, GridItem } from '@chakra-ui/react';
 import { NextPageWithLayout } from '@/pages/_app';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import SearchBar from '@/components/SearchBar';
 import AdvancedSearch from '@/components/AdvancedSearch';
+import AnimeCard from '@/components/AnimeCard';
 
 const IndexPage: NextPageWithLayout = () => {
   return (
@@ -12,6 +13,22 @@ const IndexPage: NextPageWithLayout = () => {
         <AdvancedSearch />
         <Box flex="1">
           <SearchBar />
+          <Box marginTop="24px">
+            <Grid gap={6} templateColumns="repeat(4, 1fr)">
+              <GridItem>
+                <AnimeCard />
+              </GridItem>
+              <GridItem>
+                <AnimeCard />
+              </GridItem>
+              <GridItem>
+                <AnimeCard />
+              </GridItem>
+              <GridItem>
+                <AnimeCard />
+              </GridItem>
+            </Grid>
+          </Box>
         </Box>
       </Flex>
     </Container>
