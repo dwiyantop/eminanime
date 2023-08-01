@@ -40,7 +40,17 @@ const AnimeCard = ({ isLoading, anime }: { isLoading: boolean; anime?: IAnime })
         gap="0px"
         overflow="hidden"
       >
-        <Image alt="Anime Poster" src="https://cdn.myanimelist.net/images/anime/4/19644l.jpg" />
+        <Box aspectRatio="auto 2/3" position="relative" width="100%">
+          <Image
+            alt="Anime Poster"
+            height="100%"
+            objectFit="cover"
+            position="absolute"
+            src={anime.images.jpg.large_image_url}
+            top="0"
+            width="100%"
+          />
+        </Box>
         <Box padding="12px" width="100%">
           <Flex alignContent="space-between" alignItems="center" width="100%">
             <Box flex="1">
